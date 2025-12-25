@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My GitHub Pages Site</title>
+    <!-- Link to a simple CSS file (optional) -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon (optional) -->
+    <link rel="icon" href="https://github.githubassets.com/favicon.ico" type="image/x-icon">
+    <!-- Open Graph tags for social sharing (optional) -->
+    <meta property="og:title" content="My GitHub Pages Site">
+    <meta property="og:description" content="Welcome to my website hosted on GitHub Pages">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/YOUR_PROFILE_ID">
+    <style>
+        /* Basic CSS included directly in HTML for simplicity */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #24292e;
+            background-color: #f6f8fa;
+        }
+        header {
+            border-bottom: 1px solid #e1e4e8;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #0366d6;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 6px;
+            border: 1px solid #e1e4e8;
+            padding: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #6a737d;
+            font-size: 14px;
+            border-top: 1px solid #e1e4e8;
+            padding-top: 20px;
+        }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        code {
+            background-color: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to My GitHub Pages Site</h1>
+            <p>This is a simple homepage for your GitHub Pages website.</p>
+        </header>
+        
+        <main>
+            <section>
+                <h2>About This Site</h2>
+                <p>This site is hosted for free using <strong>GitHub Pages</strong>. You can customize it by editing this <code>index.html</code> file in your repository.</p>
+                
+                <h2>Next Steps</h2>
+                <ul>
+                    <li>Edit this HTML file to add your own content</li>
+                    <li>Add more HTML pages in your repository</li>
+                    <li>Enable GitHub Pages in your repository Settings</li>
+                    <li>Add a custom domain (optional)</li>
+                    <li>Use Jekyll for blogging or documentation (optional)</li>
+                </ul>
+                
+                <h2>Quick Links</h2>
+                <p>
+                    <a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages Documentation</a> |
+                    <a href="https://pages.github.com/" target="_blank">GitHub Pages Official Site</a>
+                </p>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Last updated: <span id="current-date"></span></p>
+            <p>Hosted on GitHub Pages</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple script to display current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Optional: Add a console message
+        console.log('Welcome to my GitHub Pages site!');
+    </script>
+</body>
+</html>
