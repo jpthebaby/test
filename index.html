@@ -3,447 +3,837 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Server Control Panel</title>
+    <title>Modding Tutorials - Demon Slayer Hinokami Chronicles 2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #2d3748;
+            --secondary: #4a5568;
+            --accent: #4299e1;
+            --accent-dark: #3182ce;
+            --light: #f7fafc;
+            --light-gray: #e2e8f0;
+            --dark: #1a202c;
+            --success: #48bb78;
+            --warning: #ed8936;
+            --danger: #f56565;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: #f5f7fa;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
+            color: var(--dark);
+            background-color: #f8f9fa;
+            overflow-x: hidden;
         }
-        
+
         .container {
-            display: flex;
-            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        
-        /* Sidebar styling */
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, #2c3e50, #1a252f);
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
             color: white;
-            padding: 25px 20px;
-            box-shadow: 3px 0 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .sidebar::before {
-            content: '';
-            position: absolute;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #3498db, #2ecc71);
+            z-index: 1000;
         }
-        
-        .logo-container {
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
         }
-        
-        .logo {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #3498db, #2ecc71);
-            border-radius: 10px;
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Layout */
+        .main-layout {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 0 0 280px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-gray);
+            color: var(--primary);
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.8rem;
+        }
+
+        .toc-list a {
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .toc-list a:hover {
+            background-color: var(--light-gray);
+            color: var(--accent);
+        }
+
+        .toc-list a.active {
+            background-color: rgba(66, 153, 225, 0.1);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .tutorial-header {
+            margin-bottom: 2rem;
+        }
+
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-info i {
+            color: var(--accent);
+        }
+
+        .tutorial-content section {
+            margin-bottom: 3rem;
+        }
+
+        .tutorial-content h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .tutorial-content h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .tutorial-content p {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .tutorial-content ul, .tutorial-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .tutorial-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .note-box {
+            background-color: rgba(66, 153, 225, 0.08);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .note-box strong {
+            color: var(--accent-dark);
+        }
+
+        .warning-box {
+            background-color: rgba(237, 137, 54, 0.08);
+            border-left: 4px solid var(--warning);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .warning-box strong {
+            color: var(--warning);
+        }
+
+        .code-block {
+            background-color: #1a202c;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            font-family: 'Roboto Mono', monospace;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block .comment {
+            color: #718096;
+        }
+
+        .step-container {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-number {
+            background-color: var(--accent);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
         }
-        
-        .logo i {
-            font-size: 24px;
+
+        .step-title {
+            font-weight: 600;
+            color: var(--primary);
         }
-        
-        .server-info {
-            flex-grow: 1;
-        }
-        
-        .server-name {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            background: linear-gradient(to right, #3498db, #2ecc71);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .server-status {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-        }
-        
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            background-color: #2ecc71;
-            border-radius: 50%;
-            margin-right: 8px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-        
-        .tabs {
-            margin-top: 20px;
-        }
-        
-        .tab-link {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            margin-bottom: 8px;
-            color: #bdc3c7;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        .tab-link i {
-            margin-right: 12px;
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
-        }
-        
-        .tab-link:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--primary);
             color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
         }
-        
-        .tab-link.active {
-            background-color: rgba(52, 152, 219, 0.2);
-            color: #3498db;
-            border-left: 4px solid #3498db;
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
-        
-        .tab-number {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            text-align: center;
-            line-height: 24px;
-            font-size: 12px;
-            margin-right: 12px;
-        }
-        
-        .tab-link.active .tab-number {
-            background-color: #3498db;
             color: white;
+            text-decoration: none;
+            transition: var(--transition);
         }
-        
-        /* Main content styling */
-        .main-content {
-            flex-grow: 1;
-            padding: 30px;
-            overflow-y: auto;
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
         }
-        
-        .header {
-            margin-bottom: 30px;
-        }
-        
-        .header h1 {
-            font-size: 32px;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            color: #7f8c8d;
-            font-size: 16px;
-        }
-        
-        .tab-content {
-            display: none;
-            background-color: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .tab-content h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #ecf0f1;
-        }
-        
-        .tab-content p {
-            margin-bottom: 15px;
-            color: #555;
-        }
-        
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 10px;
-            padding: 20px;
+
+        .copyright {
             text-align: center;
-            transition: transform 0.3s ease;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0aec0;
+            font-size: 0.9rem;
         }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .stat-card i {
-            font-size: 32px;
-            color: #3498db;
-            margin-bottom: 15px;
-        }
-        
-        .stat-card h3 {
-            font-size: 28px;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-        
-        .stat-card p {
-            color: #7f8c8d;
-            font-size: 14px;
-        }
-        
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            color: #95a5a6;
-            font-size: 14px;
-            padding-top: 20px;
-            border-top: 1px solid #ecf0f1;
-        }
-        
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .container {
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .main-layout {
                 flex-direction: column;
             }
             
             .sidebar {
-                width: 100%;
-                padding: 15px;
-            }
-            
-            .logo-container {
-                margin-bottom: 20px;
-            }
-            
-            .tabs {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-            
-            .tab-link {
+                position: static;
                 flex: 1;
-                min-width: 120px;
-                margin: 5px;
-                justify-content: center;
-                padding: 12px 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
             }
             
-            .tab-link i {
-                margin-right: 8px;
+            nav {
+                display: none;
+                width: 100%;
+                margin-top: 1rem;
             }
             
-            .tab-number {
-                margin-right: 8px;
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .tutorial-header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 1.5rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar with logo, server name and tabs -->
-        <div class="sidebar">
-            <div class="logo-container">
-                <div class="logo">
-                    <i class="fas fa-server"></i>
-                </div>
-                <div class="server-info">
-                    <div class="server-name">AlphaServer-01</div>
-                    <div class="server-status">
-                        <div class="status-indicator"></div>
-                        <span>Online & Running</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tabs">
-                <a href="#" class="tab-link active" data-tab="tab1">
-                    <span class="tab-number">1</span>
-                    <i class="fas fa-dashboard"></i>
-                    <span>Dashboard</span>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>Modding Tutorials</span>
                 </a>
-                <a href="#" class="tab-link" data-tab="tab2">
-                    <span class="tab-number">2</span>
-                    <i class="fas fa-cogs"></i>
-                    <span>Configuration</span>
-                </a>
-                <a href="#" class="tab-link" data-tab="tab3">
-                    <span class="tab-number">3</span>
-                    <i class="fas fa-chart-line"></i>
-                    <span>Analytics</span>
-                </a>
-                <a href="#" class="tab-link" data-tab="tab4">
-                    <span class="tab-number">4</span>
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Security</span>
-                </a>
-                <a href="#" class="tab-link" data-tab="tab5">
-                    <span class="tab-number">5</span>
-                    <i class="fas fa-users"></i>
-                    <span>Users</span>
-                </a>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#" class="active"><i class="fas fa-book"></i> Tutorials</a></li>
+                        <li><a href="#"><i class="fas fa-tools"></i> Tools</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        
-        <!-- Main content area -->
-        <div class="main-content">
-            <div class="header">
-                <h1>Server Control Panel</h1>
-                <p>Manage your server settings and monitor performance from this dashboard</p>
-            </div>
-            
-            <!-- Tab content sections -->
-            <div id="tab1" class="tab-content active">
-                <h2><i class="fas fa-dashboard"></i> Dashboard Overview</h2>
-                <p>Welcome to your server control panel. Here you can monitor the overall health and performance of your server.</p>
-                <p>The dashboard provides a quick overview of key metrics and system status.</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-layout">
+            <!-- Sidebar with Table of Contents -->
+            <aside class="sidebar">
+                <h3><i class="fas fa-list-ol"></i> Table of Contents</h3>
+                <ul class="toc-list">
+                    <li><a href="#introduction" class="active"><i class="fas fa-play"></i> Introduction</a></li>
+                    <li><a href="#requirements"><i class="fas fa-clipboard-check"></i> Requirements</a></li>
+                    <li><a href="#file-extraction"><i class="fas fa-file-archive"></i> File Extraction</a></li>
+                    <li><a href="#modding-process"><i class="fas fa-cogs"></i> Modding Process</a></li>
+                    <li><a href="#ue4-modding"><i class="fas fa-gamepad"></i> UE4 Modding</a></li>
+                    <li><a href="#texture-modding"><i class="fas fa-palette"></i> Texture Modding</a></li>
+                    <li><a href="#final-steps"><i class="fas fa-flag-checkered"></i> Final Steps</a></li>
+                    <li><a href="#conclusion"><i class="fas fa-check-circle"></i> Conclusion</a></li>
+                </ul>
                 
-                <div class="stats-container">
-                    <div class="stat-card">
-                        <i class="fas fa-microchip"></i>
-                        <h3>24%</h3>
-                        <p>CPU Usage</p>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-memory"></i>
-                        <h3>5.2 GB</h3>
-                        <p>Memory Used</p>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-hdd"></i>
-                        <h3>42%</h3>
-                        <p>Disk Usage</p>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-network-wired"></i>
-                        <h3>2.1 Gbps</h3>
-                        <p>Network Traffic</p>
+                <h3 style="margin-top: 2rem;"><i class="fas fa-download"></i> Resources</h3>
+                <ul class="toc-list">
+                    <li><a href="#"><i class="fas fa-link"></i> UE4 Utilities</a></li>
+                    <li><a href="#"><i class="fas fa-link"></i> FModel Tool</a></li>
+                    <li><a href="#"><i class="fas fa-link"></i> GitHub Repository</a></li>
+                    <li><a href="#"><i class="fas fa-link"></i> Community Discord</a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Tutorial Content -->
+            <main class="main-content">
+                <div class="breadcrumb">
+                    <a href="#">Home</a> <i class="fas fa-chevron-right"></i>
+                    <a href="#">Tutorials</a> <i class="fas fa-chevron-right"></i>
+                    <a href="#">Demon Slayer</a> <i class="fas fa-chevron-right"></i>
+                    <span>Part 1: Getting Started</span>
+                </div>
+
+                <div class="tutorial-header">
+                    <h1>Demon Slayer Hinokami Chronicles 2 Modding Guide Part 1</h1>
+                    <p class="subtitle">A comprehensive guide to modding Demon Slayer Hinokami Chronicles 2, covering file extraction, UE4 modding basics, and texture replacement.</p>
+                    
+                    <div class="meta-info">
+                        <span><i class="fas fa-user"></i> By jpthebaby</span>
+                        <span><i class="fas fa-calendar-alt"></i> Last updated: June 2023</span>
+                        <span><i class="fas fa-clock"></i> Reading time: 15 min</span>
+                        <span><i class="fas fa-tags"></i> UE4, Modding, Demon Slayer</span>
                     </div>
                 </div>
-            </div>
-            
-            <div id="tab2" class="tab-content">
-                <h2><i class="fas fa-cogs"></i> Server Configuration</h2>
-                <p>This section allows you to configure server settings and adjust system parameters.</p>
-                <p>Modify network settings, storage options, and other critical configurations from this panel.</p>
-            </div>
-            
-            <div id="tab3" class="tab-content">
-                <h2><i class="fas fa-chart-line"></i> Performance Analytics</h2>
-                <p>View detailed analytics and performance metrics for your server.</p>
-                <p>Monitor trends, identify bottlenecks, and optimize system performance based on historical data.</p>
-            </div>
-            
-            <div id="tab4" class="tab-content">
-                <h2><i class="fas fa-shield-alt"></i> Security Settings</h2>
-                <p>Manage firewall settings, access controls, and security protocols.</p>
-                <p>Review security logs and configure intrusion detection systems to protect your server.</p>
-            </div>
-            
-            <div id="tab5" class="tab-content">
-                <h2><i class="fas fa-users"></i> User Management</h2>
-                <p>Add, remove, or modify user accounts and access permissions.</p>
-                <p>Control who has access to your server and what level of privileges they possess.</p>
-            </div>
-            
-            <div class="footer">
-                <p>Server Control Panel v2.1 • Last updated: Today at 14:30 GMT</p>
-            </div>
+
+                <div class="tutorial-content">
+                    <section id="introduction">
+                        <h2><i class="fas fa-play-circle"></i> Introduction</h2>
+                        <p>This tutorial will guide you through the process of modding Demon Slayer Hinokami Chronicles 2. The game runs on Unreal Engine 4, which makes it relatively straightforward to mod once you understand the basics.</p>
+                        
+                        <div class="note-box">
+                            <strong><i class="fas fa-lightbulb"></i> Note:</strong> This guide assumes you have basic computer skills and are comfortable with file management. Always back up your game files before making any changes.
+                        </div>
+                        
+                        <p>We'll be covering the entire process from extracting game files to implementing your mods. The tutorial is broken down into several parts to make it easier to follow.</p>
+                    </section>
+
+                    <section id="requirements">
+                        <h2><i class="fas fa-clipboard-check"></i> Requirements</h2>
+                        <p>Before you begin, make sure you have the following tools and software installed:</p>
+                        
+                        <div class="step-container">
+                            <div class="step-header">
+                                <div class="step-number">1</div>
+                                <div class="step-title">Essential Tools</div>
+                            </div>
+                            <ul>
+                                <li><strong>FModel:</strong> For extracting UE4 game files</li>
+                                <li><strong>UE4.27 or UE4.25:</strong> Unreal Engine version</li>
+                                <li><strong>UModel:</strong> Alternative tool for asset extraction</li>
+                                <li><strong>7-Zip or WinRAR:</strong> For archive management</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-container">
+                            <div class="step-header">
+                                <div class="step-number">2</div>
+                                <div class="step-title">Optional Tools</div>
+                            </div>
+                            <ul>
+                                <li><strong>Photoshop or GIMP:</strong> For texture editing</li>
+                                <li><strong>Blender:</strong> For 3D model editing</li>
+                                <li><strong>Notepad++:</strong> For editing configuration files</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="warning-box">
+                            <strong><i class="fas fa-exclamation-triangle"></i> Warning:</strong> Modding online games may violate terms of service. Only mod in offline/single-player modes unless you understand the risks.
+                        </div>
+                    </section>
+
+                    <section id="file-extraction">
+                        <h2><i class="fas fa-file-archive"></i> File Extraction</h2>
+                        <p>The first step in modding any UE4 game is to locate and extract the game files. These are usually stored in .pak files within the game directory.</p>
+                        
+                        <h3>Locating Game Files</h3>
+                        <p>Navigate to your game installation directory. For Steam games, this is typically:</p>
+                        
+                        <div class="code-block">
+                            <span class="comment"># Steam installation path</span><br>
+                            C:\Program Files (x86)\Steam\steamapps\common\Demon Slayer Hinokami Chronicles 2
+                        </div>
+                        
+                        <h3>Using FModel for Extraction</h3>
+                        <ol>
+                            <li>Open FModel and set the game path to your installation directory</li>
+                            <li>Select the appropriate UE4 version (4.27 or 4.25)</li>
+                            <li>Navigate to the .pak files you want to extract</li>
+                            <li>Right-click and select "Extract" to save files to your desired location</li>
+                        </ol>
+                        
+                        <p>Most game assets will be in the "Content" folder. Textures are usually in .uasset or .utexture files, while models are in .umap or .uasset files.</p>
+                    </section>
+
+                    <section id="modding-process">
+                        <h2><i class="fas fa-cogs"></i> Modding Process</h2>
+                        <p>Once you've extracted the necessary files, you can begin the modding process. This typically involves:</p>
+                        
+                        <div class="step-container">
+                            <div class="step-header">
+                                <div class="step-number">1</div>
+                                <div class="step-title">Asset Replacement</div>
+                            </div>
+                            <p>Replace existing game assets with your custom ones. This is the most common type of mod, especially for texture replacements.</p>
+                        </div>
+                        
+                        <div class="step-container">
+                            <div class="step-header">
+                                <div class="step-number">2</div>
+                                <div class="step-title">Script Modification</div>
+                            </div>
+                            <p>Edit game scripts to change behavior, add new features, or fix bugs. This requires more advanced knowledge of UE4 and programming.</p>
+                        </div>
+                        
+                        <div class="step-container">
+                            <div class="step-header">
+                                <div class="step-number">3</div>
+                                <div class="step-title">Packaging Mods</div>
+                            </div>
+                            <p>Once your mod is ready, you'll need to package it properly so it can be installed by other users. This usually involves creating a .pak file with your modified assets.</p>
+                        </div>
+                    </section>
+
+                    <section id="ue4-modding">
+                        <h2><i class="fas fa-gamepad"></i> UE4 Modding Basics</h2>
+                        <p>Understanding UE4's file structure is crucial for successful modding. Here are some key concepts:</p>
+                        
+                        <h3>UE4 File Types</h3>
+                        <ul>
+                            <li><strong>.uasset:</strong> Contains game assets like textures, materials, and blueprints</li>
+                            <li><strong>.umap:</strong> Contains level/map data</li>
+                            <li><strong>.uexp:</strong> Binary data associated with .uasset files</li>
+                            <li><strong>.ubulk:</strong> Bulk data like high-resolution textures</li>
+                            <li><strong>.pak:</strong> Archive containing multiple game files</li>
+                        </ul>
+                        
+                        <h3>Mod Installation</h3>
+                        <p>Most UE4 mods are installed by placing .pak files in the game's "Paks" folder. Some mods may require additional steps like creating a "~mods" folder.</p>
+                        
+                        <div class="code-block">
+                            <span class="comment"># Typical mod installation path</span><br>
+                            GameDirectory\Content\Paks\~mods\
+                        </div>
+                    </section>
+
+                    <section id="texture-modding">
+                        <h2><i class="fas fa-palette"></i> Texture Modding</h2>
+                        <p>Texture modding is one of the most accessible forms of modding. Here's a basic workflow:</p>
+                        
+                        <ol>
+                            <li>Extract the texture you want to modify using FModel</li>
+                            <li>Convert the texture to a standard format like .png or .dds</li>
+                            <li>Edit the texture in your preferred image editor</li>
+                            <li>Convert back to the game's format</li>
+                            <li>Repackage and test in-game</li>
+                        </ol>
+                        
+                        <div class="note-box">
+                            <strong><i class="fas fa-lightbulb"></i> Pro Tip:</strong> When editing textures, always maintain the same dimensions and format as the original to ensure compatibility.
+                        </div>
+                    </section>
+
+                    <section id="conclusion">
+                        <h2><i class="fas fa-check-circle"></i> Conclusion</h2>
+                        <p>This concludes Part 1 of the Demon Slayer Hinokami Chronicles 2 modding guide. You should now have a basic understanding of:</p>
+                        
+                        <ul>
+                            <li>Required tools for UE4 modding</li>
+                            <li>How to extract game files</li>
+                            <li>The basics of the UE4 file structure</li>
+                            <li>An overview of the modding process</li>
+                        </ul>
+                        
+                        <p>In Part 2, we'll dive deeper into specific modding techniques, including character model replacement, custom shaders, and more advanced UE4 modifications.</p>
+                        
+                        <div class="step-container" style="background-color: rgba(72, 187, 120, 0.08); border-left-color: var(--success);">
+                            <div class="step-header">
+                                <div class="step-number" style="background-color: var(--success);"><i class="fas fa-arrow-right"></i></div>
+                                <div class="step-title">Ready for More?</div>
+                            </div>
+                            <p>Continue to Part 2 where we cover advanced modding techniques, troubleshooting common issues, and creating shareable mod packages.</p>
+                            <a href="#" style="display: inline-block; margin-top: 1rem; padding: 0.5rem 1.5rem; background-color: var(--success); color: white; text-decoration: none; border-radius: var(--border-radius); font-weight: 500;">Go to Part 2 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </section>
+                </div>
+            </main>
         </div>
     </div>
 
-    <script>
-        // Tab switching functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabLinks = document.querySelectorAll('.tab-link');
-            const tabContents = document.querySelectorAll('.tab-content');
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Modding Tutorials</h3>
+                    <p>Your comprehensive resource for game modification guides, tools, and community resources.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> All Tutorials</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Modding Tools</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Submit a Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Game Tutorials</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-gamepad"></i> Demon Slayer Series</a></li>
+                        <li><a href="#"><i class="fas fa-gamepad"></i> Other UE4 Games</a></li>
+                        <li><a href="#"><i class="fas fa-gamepad"></i> Unity Games</a></li>
+                        <li><a href="#"><i class="fas fa-gamepad"></i> Beginner Guides</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-gavel"></i> Terms of Use</a></li>
+                        <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
             
-            tabLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Get the target tab id
-                    const targetTab = this.getAttribute('data-tab');
-                    
-                    // Remove active class from all tabs and contents
-                    tabLinks.forEach(tab => tab.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding content
-                    this.classList.add('active');
-                    document.getElementById(targetTab).classList.add('active');
+            <div class="copyright">
+                <p>&copy; 2023 Modding Tutorials. All game content and materials are trademarks and copyrights of their respective owners. This site is for educational purposes only.</p>
+                <p style="margin-top: 0.5rem;">Template designed for GitHub tutorial content | Easily customizable</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Table of Contents active state
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('.tutorial-content section');
+        
+        // Highlight active section in TOC
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scrolling for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active state
+                        tocLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Close mobile menu if open
+                        if (mainNav.classList.contains('active')) {
+                            mainNav.classList.remove('active');
+                            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Add copy functionality to code blocks
+        const codeBlocks = document.querySelectorAll('.code-block');
+        codeBlocks.forEach(block => {
+            block.style.position = 'relative';
+            
+            const copyBtn = document.createElement('button');
+            copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+            copyBtn.style.position = 'absolute';
+            copyBtn.style.top = '10px';
+            copyBtn.style.right = '10px';
+            copyBtn.style.backgroundColor = 'rgba(255,255,255,0.1)';
+            copyBtn.style.border = 'none';
+            copyBtn.style.borderRadius = '4px';
+            copyBtn.style.color = '#e2e8f0';
+            copyBtn.style.padding = '5px 10px';
+            copyBtn.style.cursor = 'pointer';
+            copyBtn.style.fontSize = '0.8rem';
+            copyBtn.style.transition = 'background-color 0.3s';
+            
+            copyBtn.addEventListener('mouseenter', () => {
+                copyBtn.style.backgroundColor = 'rgba(255,255,255,0.2)';
+            });
+            
+            copyBtn.addEventListener('mouseleave', () => {
+                copyBtn.style.backgroundColor = 'rgba(255,255,255,0.1)';
+            });
+            
+            copyBtn.addEventListener('click', () => {
+                const codeText = block.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+                    }, 2000);
                 });
             });
             
-            // Simulate server status updates (just for demo)
-            setInterval(() => {
-                const statusIndicator = document.querySelector('.status-indicator');
-                const statusText = document.querySelector('.server-status span');
-                
-                // Randomly change status for demo purposes
-                const statuses = [
-                    { color: '#2ecc71', text: 'Online & Running' },
-                    { color: '#f39c12', text: 'Moderate Load' },
-                    { color: '#3498db', text: 'Optimal Performance' },
-                    { color: '#2ecc71', text: 'Online & Running' }
-                ];
-                
-                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-                statusIndicator.style.backgroundColor = randomStatus.color;
-                statusText.textContent = randomStatus.text;
-            }, 5000);
+            block.appendChild(copyBtn);
         });
     </script>
 </body>
