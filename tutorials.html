@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gamer JP | Modding Tutorials</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* Tutorial Cards (page-specific, UI safe) */
+.tutorial-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:2rem;
+margin-top:2rem;
+}
+
+.tutorial-card{
+background:#fff;
+border-radius:12px;
+box-shadow:0 6px 16px rgba(0,0,0,0.08);
+overflow:hidden;
+display:flex;
+flex-direction:column;
+transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.tutorial-card:hover{
+transform:translateY(-6px);
+box-shadow:0 12px 24px rgba(0,0,0,0.12);
+}
+
+.tutorial-card img{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+.tutorial-content{
+padding:1.5rem;
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+.tutorial-tag{
+display:inline-block;
+font-size:.75rem;
+font-weight: 600;
+padding:.3rem .8rem;
+border-radius:999px;
+background:#e6f0fb;
+color:#2b6cb0;
+margin-bottom:.8rem;
+width:fit-content;
+}
+
+.tutorial-content h3{
+margin-bottom:.6rem;
+font-size:1.2rem;
+}
+
+.tutorial-content p{
+font-size:.95rem;
+color:#555;
+flex:1;
+}
+
+.tutorial-content a{
+margin-top:1rem;
+display:inline-block;
+text-decoration:none;
+background:#4299e1;
+color:#fff;
+padding:.6rem 1.2rem;
+border-radius:8px;
+font-weight:500;
+width:fit-content;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<div class="container header-content">
+
+
+<a class="logo" href="index.html">
+
+<img src="images/logo.jpg" alt="Gamer JP Logo" 
+                 style="height: 50px; width: 50px; object-fit: contain; margin-right: 10px; border-radius: 8px;">
+            <span>Gamer JP</span>
+</a>
+
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="tutorials.html" class="active">Modding Tutorials</a></li>
+<li><a href="my-mods.html">My Mods</a></li>
+<li><a href="about.html">About Me</a></li>
+</ul>
+</nav>
+<button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+  🌙
+</button>
+
+
+</div>
+</header>
+
+<div class="container page-content">
+
+<h1>Featured Modding Tutorials</h1>
+<p>Explore in-depth game modding tutorials, from texture editing to full character replacements.</p>
+
+<div class="tutorial-grid">
+
+<!-- Demon Slayer 2 -->
+<div class="tutorial-card">
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e" alt="">
+<div class="tutorial-content">
+<span class="tutorial-tag">Advanced</span>
+<h3>Demon Slayer 2 : Texture Modding Tutorial</h3>
+<p>A complete guide covering textures, models, file structure, and mod packaging.</p>
+<a href="got-modding.html">Read Tutorial</a>
+</div>
+</div>
+
+<!-- Demon Slayer Texture -->
+<div class="tutorial-card">
+<img src="images/demonslayer1.png" alt="">
+<div class="tutorial-content">
+<span class="tutorial-tag">Beginner</span>
+<h3>Demon Slayer 1 : Texture Modding Tutorial</h3>
+<p>Learn how to extract, edit, and replace character textures in Demon Slayer: Hinokami Chronicles.</p>
+<a href="ds-texture.html">Read Tutorial</a>
+</div>
+</div>
+
+<!-- Demon Slayer Character Swap -->
+<div class="tutorial-card">
+<img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf" alt="">
+<div class="tutorial-content">
+<span class="tutorial-tag">Intermediate</span>
+<h3>Demon Slayer 1 : Character Swap Tutorial</h3>
+<p>Swap playable characters and models while keeping animations and gameplay intact.</p>
+<a href="ds-swap.html">Read Tutorial</a>
+</div>
+</div>
+
+<!-- Ghost of Tsushima -->
+<div class="tutorial-card">
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e" alt="">
+<div class="tutorial-content">
+<span class="tutorial-tag">Advanced</span>
+<h3>Ghost of Tsushima : Full Modding Tutorial</h3>
+<p>A complete guide covering textures, models, file structure, and mod packaging.</p>
+<a href="got-modding.html">Read Tutorial</a>
+</div>
+</div>
+
+<!-- Marvel Spiderman -->
+<div class="tutorial-card">
+<img src="https://images.unsplash.com/photo-1511512578047-dfb367046420" alt="">
+<div class="tutorial-content">
+<span class="tutorial-tag">Beginner</span>
+<h3>Marvel’s Spider-Man : Texture Modding Tutorial</h3>
+<p>Customize suits and visuals by editing textures and rebuilding mod packages.</p>
+<a href="spiderman-texture.html">Read Tutorial</a>
+</div>
+</div>
+
+</div>
+</div>
+
+<footer>
+<p>© Gamer JP | GitHub Pages</p>
+</footer>
+
+<script>
+const themeToggle = document.getElementById("themeToggle");
+
+function setThemeIcon() {
+  if (document.body.classList.contains("dark-mode")) {
+    themeToggle.textContent = "☀️";
+  } else {
+    themeToggle.textContent = "🌙";
+  }
+}
+
+function toggleTheme() {
+  document.body.classList.toggle("dark-mode");
+
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+
+  setThemeIcon();
+}
+
+// Load saved theme on page load
+window.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+  setThemeIcon();
+});
+</script>
+
+
+
+</body>
+</html>

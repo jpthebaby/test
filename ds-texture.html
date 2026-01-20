@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gamer JP | Demon Slayer Texture Modding</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* Tutorial Page Styling */
+.tutorial-article{
+max-width:900px;
+margin:auto;
+}
+
+.tutorial-article h1{
+margin-bottom:1rem;
+}
+
+.tutorial-article h2{
+margin-top:0.3rem;
+margin-bottom:1rem;
+}
+
+.tutorial-article p{
+margin-bottom:1rem;
+line-height:1.7;
+}
+
+.tutorial-article ul{
+margin-left:1.5rem;
+margin-bottom:1rem;
+}
+
+.tutorial-article li{
+margin-bottom:.4rem;
+}
+
+.tutorial-step{
+background:#ffffff;
+border-left:4px solid #4299e1;
+padding:1.5rem;
+margin:2rem 0;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* YouTube Embed */
+.video-section{
+margin-top:4rem;
+}
+
+.video-wrapper{
+position:relative;
+padding-bottom:56.25%;
+height:0;
+overflow:hidden;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.video-wrapper iframe{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border:0;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<div class="container header-content">
+
+<a class="logo" href="index.html">
+
+<img src="images/logo.jpg" alt="Gamer JP Logo" 
+                 style="height: 50px; width: 50px; object-fit: contain; margin-right: 10px; border-radius: 8px;">
+            <span>Gamer JP</span>
+</a>
+
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="tutorials.html" class="active">Modding Tutorials</a></li>
+<li><a href="my-mods.html">My Mods</a></li>
+<li><a href="about.html">About Me</a></li>
+</ul>
+</nav>
+<button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+  🌙
+</button>
+
+
+</div>
+</header>
+
+<div class="container page-content tutorial-article">
+
+<h1>Demon Slayer: Texture Modding Tutorial</h1>
+
+<p>
+This tutorial covers the complete workflow for texture modding in
+<strong>Demon Slayer: Hinokami Chronicles</strong>. Follow each step carefully to
+extract, edit, and replace character outfit textures in-game.
+</p>
+
+<div class="tutorial-step">
+<h2>Step 1 – Required Tools</h2>
+<ul>
+<li><strong>UModel</strong> – Extract textures from the game</li>
+<li><strong>Unreal Engine 4.25+</strong> – Rebuild and cook textures</li>
+<li><strong>UnrealPak</strong> – Repack files into a <code>.pak</code> mod</li>
+<li><strong>Asset Editor</strong> – Optional (not used here)</li>
+</ul>
+</div>
+
+<div class="tutorial-step">
+<h2>Step 2 – Extracting Textures</h2>
+<p>
+Use UModel to browse to:
+</p>
+<p><code>DemonSlayer/APK/Content/Paks</code></p>
+<p>
+Enable Override Game Detection, select Unreal Engine 4.25+, set platform to PC,
+and export <strong>Body_AC</strong> and <strong>Body_DI</strong> from Nezuko’s texture folder.
+</p>
+</div>
+
+<div class="tutorial-step">
+<h2>Step 3 – Editing Textures</h2>
+<p>
+Open the textures in Photoshop or any image editor. Recolor Nezuko’s outfit
+as desired and save the files without changing their names.
+</p>
+</div>
+
+<div class="tutorial-step">
+<h2>Step 4 – Rebuilding with Unreal Engine</h2>
+<p>
+Create a new blank Unreal Engine project, import the modified Art folder,
+save all files, and cook the content for Windows.
+</p>
+</div>
+
+<div class="tutorial-step">
+<h2>Step 5 – Repacking with UnrealPak</h2>
+<p>
+Copy the cooked <code>Content/Art</code> folder into your UnrealPak directory under
+<code>APK/Content/Art</code>, then pack it using
+<strong>UnrealPak-with-compression.bat</strong>.
+</p>
+<p>
+Your mod is now ready to use in-game. 🎉
+</p>
+</div>
+
+<!-- 🎥 YouTube Video Section -->
+<div class="video-section">
+<h2>Video Tutorial</h2>
+<p>
+Watch the full video walkthrough on YouTube for a complete visual guide.
+</p>
+
+<a href="https://youtu.be/Dyakik31Tfo" target="_blank" style="text-decoration:none;">
+<div style="
+position:relative;
+max-width:900px;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+cursor:pointer;
+">
+
+<img
+src="https://img.youtube.com/vi/Dyakik31Tfo/maxresdefault.jpg"
+alt="Demon Slayer Texture Modding Tutorial"
+style="width:100%; display:block;"
+>
+
+<div style="
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(0,0,0,0.25);
+">
+
+<i class="fas fa-play-circle" style="
+font-size:80px;
+color:white;
+"></i>
+
+</div>
+</div>
+</a>
+
+</div>
+
+</div>
+
+<footer>
+  <p>Gamer JP | GitHub Pages</p>
+
+  <div class="footer-social">
+    <a href="https://www.youtube.com/@jpthehero/" target="_blank" title="YouTube">
+      <i class="fab fa-youtube"></i>
+    </a>
+
+    <a href="https://www.instagram.com/gamerjp.ig/" target="_blank" title="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://discord.gg/uBTutBA8VX" target="_blank" title="Discord">
+      <i class="fab fa-discord"></i>
+    </a>
+  </div>
+</footer>
+
+<script>
+const themeToggle = document.getElementById("themeToggle");
+
+function setThemeIcon() {
+  if (document.body.classList.contains("dark-mode")) {
+    themeToggle.textContent = "☀️";
+  } else {
+    themeToggle.textContent = "🌙";
+  }
+}
+
+function toggleTheme() {
+  document.body.classList.toggle("dark-mode");
+
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+
+  setThemeIcon();
+}
+
+// Load saved theme on page load
+window.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+  setThemeIcon();
+});
+</script>
+
+
+</body>
+</html>
